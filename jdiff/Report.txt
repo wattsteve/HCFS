@@ -1,0 +1,17 @@
+Difference between Hadoop FileSystem 1.0 (Hadoop 1.1.2.23) vs 2.0 (2.0.3.22)
+
+* No methods were removed (Report was incorrect)
+
+* Methods that the report said were added but were not
+
+void copyToLocalFile(Path, Path)
+FSDataOutputStream create(Path, Progressable)
+FSDataOutputStream create(Path, short)
+FSDataOutputStream create(Path, short, Progressable)
+FSDataOutputStream create(Path, FsPermission, boolean, int, short, long, Progressable)
+
+* Methods that were really added
+
+Token[] addDelegationTokens(String, Credentials)boolean cancelDeleteOnExit(Path)void concat(Path, Path[])void copyToLocalFile(boolean, Path, Path, boolean)FSDataOutputStream create(Path, FsPermission,EnumSet<CreateFlag>, int, short, long, Progressable,ChecksumOpt)FSDataOutputStream create(Path, FsPermission,EnumSet<CreateFlag>, int, short, long, Progressable)FSDataOutputStream createNonRecursive(Path, FsPermission,EnumSet<CreateFlag>, int, short, long, Progressable)FileSystem[] getChildFileSystems()BlockLocation[] getFileBlockLocations(Path, long, long)Class<FileSystem> getFileSystemClass(String,Configuration)Path getInitialWorkingDirectory()String getScheme()FsServerDefaults getServerDefaults()FsServerDefaults getServerDefaults(Path)FsStatus getStatus()FsStatus getStatus(Path)RemoteIterator<Path> listCorruptFileBlocks(Path)RemoteIterator<LocatedFileStatus> listFiles(Path,boolean)RemoteIterator<LocatedFileStatus> listLocatedStatus(Path,PathFilter)RemoteIterator<LocatedFileStatus> listLocatedStatus(Path)FileSystem newInstance(URI, Configuration)FileSystem newInstance(Configuration)FileSystem newInstance(URI, Configuration, String)LocalFileSystem newInstanceLocal(Configuration)FSDataOutputStream primitiveCreate(Path, FsPermission,EnumSet<CreateFlag>, int, short, long, Progressable,ChecksumOpt)boolean primitiveMkdir(Path, FsPermission)void primitiveMkdir(Path, FsPermission, boolean)void rename(Path, Path, Rename[])Path resolvePath(Path)void setWriteChecksum(boolean)
+
+
