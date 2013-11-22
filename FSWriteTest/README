@@ -1,0 +1,12 @@
+#The pom file here bundles hadoop jars for you, so that 
+#you can automagically run this program without updating the java classpath.
+#To run on a different version of hadoop, just update the dependency tags in the pom.xml
+#First , run :
+
+mvn package
+
+#Then you can run the program directly from java.
+
+java -cp '/home/jvyas/Development/HCFS/FSWriteTest/target/*' org.hcfs.FSWriteTest 100 1 out.txt org.apache.hadoop.fs.RawLocalFileSystem
+
+
