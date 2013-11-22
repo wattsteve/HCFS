@@ -1,0 +1,51 @@
+Hadoop FileSystem 1.0 Test Coverage
+
+Directories
+
+ftp
+kfs
+permission
+s3
+s3native
+slive
+loadGenerator
+
+Files (x denotes irrelevant test for FS. Its important to separate abstract FS tests from impl specific tests)
+
+x AccumulatingReducer.java			
+ TestDU.java		Validates Hadoop FS DU works properly		
+ TestGlobPattern.java	Validates Glob Pattern Matching Support		
+ DFSCIOTest.java	Why do we have this AND TestDFSIO ?			
+
+ TestDisableCache.java	Validates the ability to turn FS caching on and off 			
+ TestHarFileSystem.java	Validates HAR Support http://hadoop.apache.org/docs/stable/hadoop_archives.html	(Is this impl specific?)	
+
+ DistributedFSCheck.java Validates 	FS Consistency 				
+x TestFSMainOperationsLocalFileSystem.java	Does Nothing we should delete (at least out of the FS Library)	
+x TestHardLink.java	Does not use FS. We should remove. Validates Single and Multi File Hard linking
+
+ FSMainOperationsBaseTest.java	Validates FS Operations. Needs to be disambiguated from FileSystemContractBaseTest	
+ TestFileSystem.java	Validates Reads, Seeks and Writes via a M/R Job. Needs to be disambiguated from DFSCIOTest and TestDFSIO			
+x TestLocalDirAllocator.java	Does not use FS. This is a LocalFileSystem test.		
+
+ FileSystemContractBaseTest.java	Validates FS Impl adherence to FS Contract			
+x TestFileSystemCaching.java	Does not use FS. This is a LocalFileSystem test.		
+x TestLocalFileSystem.java	Does not use FS. This is a LocalFileSystem test.				
+
+ FileSystemTestHelper.java	Helper/Utility Class for FS Testing		
+x TestFileUtil.java		Does not use FS. This is a LocalFileSystem test.		
+x TestLocalFileSystemPermission.java	Does not use FS. This is a LocalFileSystem test.
+
+ IOMapperBase.java	Not sure where this is used. Seems redundant.		
+ TestFsShellReturnCode.java	Validates that chmod, chown, chgrp returning correct exit codes	
+ TestPath.java		I think this is a Helper class for testing Paths. Seems to be a mix of local and (perhaps) FS Tests.			
+
+ TestChecksumFileSystem.java	Does not use FS. This is a ChecksumFileSystem/InMemoryFileSystem test.	
+ TestGetFileBlockLocations.java	Validates the ability to determine Block/File Locations	
+ TestTrash.java	Validates FS support of Trash Operations
+ TestCopyFiles.java	Test Copy Operations but needs to be disambiguated from FileSystemContractBaseTest and other FS Classes.			
+x TestGlobExpander.java		Helper class for Glob Operations. Not clear who uses it.			
+ TestTruncatedInputBug.java	Test for HADOOP-1489. Needs to be changed from Explicit Local to FS.
+ TestDFSIO.java		Validate Read and Write Throughput			
+ TestGlobPaths.java	Tests Glob Paths. Needs to be disambiguated from other Glob Tests.		
+ TestUrlStreamHandler.java	High level validation of FS Input Streams

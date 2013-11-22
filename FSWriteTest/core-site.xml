@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+
+  <property>
+    <name>fs.glusterfs.impl</name>
+    <value>org.apache.hadoop.fs.glusterfs.GlusterFileSystem</value>
+  </property>
+
+  <property>
+    <name>fs.default.name</name>
+    <value>glusterfs://gluster-1:9000</value>
+  </property>
+
+  <property>
+    <name>fs.glusterfs.volname</name>
+    <value>gv0</value>
+  </property>
+
+  <property>
+    <name>fs.glusterfs.mount</name>
+    <value>/mnt/glusterfs</value>
+  </property>
+
+  <property>
+    <name>fs.glusterfs.server</name>
+    <value>gluster-1</value>
+  </property>
+
+
+</configuration>
