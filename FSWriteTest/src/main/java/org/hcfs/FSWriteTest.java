@@ -1,4 +1,7 @@
+package org.hcfs;
+
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
@@ -13,7 +16,7 @@ import org.apache.hadoop.fs.Path;
 
 public class FSWriteTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		
 		// Catch incorrect input parameters
 		if(args.length<4){
@@ -37,40 +40,48 @@ public class FSWriteTest {
 		
 		
 		if (local){ 	// Write the File to Local FileSystem
-		
-			File aFile = createFile(fileName);
-			start = System.currentTimeMillis();
-			try {
-				FileOutputStream os = new FileOutputStream(aFile);
-				writeToOutputStream(os,fileSize);
-				os.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			finish = System.currentTimeMillis();
-
-		} else {	// Write the File to the Distributed File System
-			FileSystem dfs = null;
-			Configuration conf = new Configuration();
-		
-			FSDataOutputStream os = null;
-			try {
-				dfs = FileSystem.get(conf);
-				start = System.currentTimeMillis();
-				os = dfs.create(new Path(fileName));
-				writeToOutputStream(os,fileSize);
-				os.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			finish = System.currentTimeMillis();
+			writeToLocal(fileSize, fileName);
+		} 
+		else {	
+		    writeToDFS(fileSize, fileName);
 		}
 		
-		System.out.println("Total ms run:" + (finish - start));
-		System.exit(0);
 	}
+
+    public static void writeToLocal(long fileSize,String fileName){
+        long start;
+        long finish;
+        File aFile = createFile(fileName);
+        start = System.currentTimeMillis();
+        try {
+        	FileOutputStream os = new FileOutputStream(aFile);
+        	writeToOutputStream(os,fileSize);
+        	os.close();
+        } catch (FileNotFoundException e) {
+        	e.printStackTrace();
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+        finish = System.currentTimeMillis();
+        System.out.println("DONE : Total ms run:" + (finish - start) + " file out size: " + aFile.length() );
+    }
+
+    public static void writeToDFS(long fileSize,String fileName) throws IOException{
+        long start;
+        long finish;
+        // Write the File to the Distributed File System
+		FileSystem dfs = null;
+		Configuration conf = new Configuration();
+		Path outfile = new Path(fileName);
+		FSDataOutputStream os = null;
+		dfs = FileSystem.get(conf);
+		start = System.currentTimeMillis();
+		os = dfs.create(outfile);
+		writeToOutputStream(os,fileSize);
+		os.close();
+		finish = System.currentTimeMillis();
+		System.out.println("DONE : Total ms run:" + (finish - start) + " file out size: " + dfs.getFileStatus(outfile).getLen());
+    }
 	
 	// Writes the data to the OutputStream provided
 	private static void writeToOutputStream(OutputStream os, long size) throws IOException{
